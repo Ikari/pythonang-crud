@@ -1,40 +1,17 @@
 <DOCTYPE=html/>
-<html ng-app="genreApp" lang="pt-BR">
+<html lang="pt-BR" ng-app="genresApp">
     <head>
         <meta charset="UTF-8"/>
         <title>ADO 02</title>
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-        <script src="./index.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>        
+        <script src="./scripts/controllers.js"></script>       
+        <script src="./scripts/app.js"></script>        
     </head>
-    <body ng-controller="genreController" ng-init="loadGenres()">
-        <div class="container">
-            <h1>LISTA DE GÊNEROS MÚSICAIS</h1>
-
-            <div class="filter" style="display:none">
-                <input type="text"/>
-            </div>
-            <br/>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>GÊNERO</th>
-                        <th style="width:150px"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="genre in genres">
-                        <td>{{genre.GenreId}}</td>
-                        <td>{{genre.Name}}</td>
-                        <td>
-                            <button ng-click="editGenre(genre.GenreId)" class="btn btn-success">Editar</button>
-                            <button style="margin-left:3px;" class="btn btn-danger">Excluir</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>            
-        </div>
+    <body>
+        <div class="container" ng-view=""></div> 
     </body>
 </html>
