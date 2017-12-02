@@ -1,0 +1,28 @@
+<div class="container" ng-init="loadGenres()">
+    <h1>LISTA DE GÊNEROS MÚSICAIS</h1>
+
+    <div class="filter" style="display:none">
+        <input type="text"/>
+    </div>
+    <br/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>GÊNERO</th>
+                <th style="width:150px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="genre in genres">
+                <td>{{genre.GenreId}}</td>
+                <td>{{genre.Name}}</td>
+                <td>
+                    <a ng-href="#genres/{{genre.GenreId}}" class="btn btn-success">Editar</a>
+                    <button ng-click="deleteGenre(genre.GenreId)" style="margin-left:3px;" class="btn btn-danger">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+    <a ng-href="#genre" class="btn btn-success">Novo</a>
+</div>
