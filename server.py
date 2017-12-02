@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, request
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
@@ -11,44 +13,45 @@ api = Api(app)
 
 CORS(app)
 
-class Genres(Resource):
+class GenresView(Resource):
     def get(self):
         conn = db_connect.connect() # connect to database
         query = conn.execute("select * from genres") # This line performs query and returns json result
         result = { 'genres': [dict(zip(tuple (query.keys()), i)) for i in query.cursor.fetchall() ]}
         return jsonify(result)
 
-class Genre(Resource):
+class GenreView(Resource):
     def get(self, genre_id):
         conn = db_connect.connect()
         query = conn.execute("select * from genres where GenreId =%d "  %int(genre_id))
         result = {'genre': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
         return jsonify(result)
 
+class Genres_Insert(Resource):
+	def post(self):
+		conn = db_connect.connect()
+		genre = request.get_json()
+		sql = "insert into genres values ((select max(GenreId) + 1 from genres), ?)"
+		conn.execute(sql,(genre['Name']))
+
+class Genres_Update(Resource):
+	def put(self):
+		print request.get_json(force=True)
+		genre = request.get_json()
+		conn = db_connect.connect()		
+		sql = "update genres set name=? where genreid=?"
+		conn.execute(sql,(genre['Name'], genre['GenreId']))
+
 class Genres_Delete(Resource):
 	def delete(self, genre_id):
 		conn = db_connect.connect()
 		query = conn.execute("delete from genres where GenreId = %d" %int(genre_id))
-
-class Genres_Insert(Resource):
-	def post(self):
-		conn = db_connect.connect()
-		newName = request.data
-		sql = "insert into genres values ((select max(GenreId) + 1 from genres), ?)"
-		conn.execute(sql,(newName))
-
-class Genres_Update(Resource):
-	def post(self, genre_id):
-		conn = db_connect.connect()
-		newName = request.data
-		sql = "update genres set name=? where genre_id=?"
-		conn.execute(sql,(newName,genre_id))
 		
-api.add_resource(Genres, '/genres') # Route_1
-api.add_resource(Genre, '/genres/<genre_id>') # Route_3
-api.add_resource(Genres_Delete,'/genres_delete/<genre_id>') #teste com remocao
-api.add_resource(Genres_Insert,'/genres_insert/<genre_name>') #teste com insert
-api.add_resource(Genres_Update,'/genres_update/<genre_id>') #atualiza nome
+api.add_resource(GenresView, '/genres') #lista
+api.add_resource(GenreView, '/genres/<genre_id>') #um registro por id
+api.add_resource(Genres_Delete,'/genres_delete/<genre_id>') #deleta
+api.add_resource(Genres_Insert,'/genres_insert') #insere
+api.add_resource(Genres_Update,'/genre_update') #atualiza
 
 
 if __name__ == '__main__':

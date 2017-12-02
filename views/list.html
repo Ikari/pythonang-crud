@@ -19,9 +19,10 @@
                 <td>{{genre.Name}}</td>
                 <td>
                     <a ng-href="#genres/{{genre.GenreId}}" class="btn btn-success">Editar</a>
-                    <button style="margin-left:3px;" class="btn btn-danger">Excluir</button>
+                    <button ng-click="deleteGenre(genre.GenreId)" style="margin-left:3px;" class="btn btn-danger">Excluir</button>
                 </td>
             </tr>
         </tbody>
-    </table>            
+    </table> 
+    <a ng-href="#genre" class="btn btn-success">Novo</a>
 </div>
