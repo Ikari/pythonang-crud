@@ -1,22 +1,13 @@
-<div class="container">
-    <h1>GÊNERO</h1>
-
-    <form novalidate="novalidate" class="form-horizontal">
-       
-       <h1>TESTANDO ROTAS</h1>
-        <!--
-        <div class="control-group">
-            <label class="control-label" for="inputNome">Nome:</label>
+<div class="container" ng-init="loadGenre()">
+    <form novalidate="novalidate" class="form-horizontal">       
+       <h1>GÊNERO</h1>
+        <div class="control-group">            
             <div class="controls">
-                <input type="text" id="inputFirstName" ng-model="genero.Name"/>
+                <label class="control-label" for="inputNome">Nome:</label>
+                <input type="text" id="inputFirstName" ng-model="genre.Name"/>
+                <a href="#genres" class="btn btn-small btn-danger">Cancelar</a>
+                <a ng-click="editGenre(genre.GenreId)" class="btn btn-small btn-primary">Atualizar</a>
             </div>
         </div>
-        <div class="control-group">
-            <div class="controls">
-                <a ng-click="cancelar()" class="btn btn-small">Cancelar</a>
-                <a ng-click="atualizar()" class="btn btn-small btn-primary">Atualizar</a>
-            </div>
-        </div>
-    -->
     </form>
 </div>   

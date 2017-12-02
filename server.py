@@ -22,7 +22,7 @@ class Genre(Resource):
     def get(self, genre_id):
         conn = db_connect.connect()
         query = conn.execute("select * from genres where GenreId =%d "  %int(genre_id))
-        result = {'data': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
+        result = {'genre': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
         return jsonify(result)
 
 class Genres_Delete(Resource):
